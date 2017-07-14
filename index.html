@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta name="author" content="Sijun Xu (sijun.xu@outlook.com)">
+    <meta name="keywords" content="Appearance Modelling, Real-Time Rendering, Computer Vision, Machine Learning">
+    <meta name="description"
+          content="Ying Song, Lecturer, School of Information Science and Technology, Zhejiang Sci-Tech University">
+    <meta name="google-site-verification" content="zCzbSvo1JUlhVXzvoGvgNVv8lR4VuV5TE-V7rDaiZE8">
+    <meta name="msvalidate.01" content="126695A8440EC7E2882CA445E113787C"/>
+
+    <title>Ying Song Scholar Page</title>
+
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/styles/app.css">
+
+    <script src="//v3.bootcss.com/assets/js/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//v3.bootcss.com/assets/js/ie8-responsive-file-warning.js"></script>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="apple-touch-icon" href="//v3.bootcss.com/apple-touch-icon.png">
+    <link rel="icon" href="//v3.bootcss.com/favicon.ico">
+</head>
+<body>
+<div class="container" id="app">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-left">
+                            <img class="img-rounded avatar" :alt="name" :title="name" :src="avatar.url">
+                        </div>
+                        <div class="media-body">
+                            <ul class="list-unstyled">
+                                <h1 class="media-heading">{{ name }}</h1>
+                                <li>{{ jobTitle }}</li>
+                                <li><a :href="worksFor.member.url">{{ worksFor.member.name }}</a></li>
+                                <li><a :href="worksFor.url">{{ worksFor.name }}</a></li>
+                                <li><img class="img-responsive" :alt="email.text" :src="email.url"></li>
+                            </ul>
+                        </div>
+                        <div class="media-bottom" v-html="description"></div>
+                    </div>
+                    <div>
+                        <h2>Research</h2>
+                        <p>{{ research }}</p>
+                    </div>
+                    <div>
+                        <h2>Publications</h2>
+                    </div>
+                </div>
+                <ul class="list-group media-list">
+                    <li class="list-group-item media" v-for="(item, key) in publications">
+                        <div class="media-left">
+                            <img class="media-object cover-small" :alt="item.name" :title="item.name"
+                                 :src="item.cover.url">
+                        </div>
+                        <div class="media-body">
+                            <a :href="'publication.html?pid=' + encodeURIComponent(key)">
+                                <h4 class="media-heading">{{ item.name }}</h4>
+                            </a>
+                            <p>
+                                <em v-html="serializeAuthors(item.authors)"></em><br>{{ item.description }}
+                                <a :href="item.paper.url" :title="item.paper.title">
+                                    <img :alt="item.paper.title" :src="'assets/images/pdf.png'">
+                                </a>
+                                <a :href="item.publisher.url" :title="item.publisher.name">
+                                    <img :alt="item.publisher.name" :src="item.publisher.image">
+                                </a>
+                                <a :href="item.bibtex.url" :title="item.bibtex.title">
+                                    <img :alt="item.bibtex.title" :src="'assets/images/tex.png'">
+                                </a>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/vue/2.3.4/vue.min.js"></script>
+<script src="//v3.bootcss.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+<script>
+    $.getJSON("assets/scripts/data.json", function (data) {
+        var vm = new Vue({
+            "el": "#app",
+            "data": data,
+            "methods": {
+                "serializeAuthors": function (authors) {
+                    var result = [];
+                    for (var index in authors) {
+                        var author = authors[index];
+                        result.push(this.serializeAuthor(author));
+                    }
+                    return result.join(", ");
+                },
+                "serializeAuthor": function (author, level) {
+                    var name = author.name;
+                    return (name == "Ying Song") ? "<strong>" + name + "</strong>" : name;
+                }
+            }
+        });
+        $("#app").show();
+
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-90089340-1', 'auto');
+        ga('send', 'pageview');
+    });
+</script>
+</body>
+</html>

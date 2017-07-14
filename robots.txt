@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /cloth/
+Sitemap: http://wingsong.github.io/sitemap.xml

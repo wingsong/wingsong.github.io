@@ -1,0 +1,239 @@
+{
+    "name": "Ying Song",
+    "homepage": {
+        "url": "https://wingsong.github.io/index.html",
+        "text": "Home",
+        "title": "Home"
+    },
+    "jobTitle": "Lecturer",
+    "avatar": {
+        "url": "assets/images/yingsong.jpg"
+    },
+    "email": {
+        "url": "assets/images/email.png",
+        "text": "Email"
+    },
+    "worksFor": {
+        "url": "http://www.zstu.edu.cn/",
+        "name": "Zhejiang Sci-Tech University",
+        "member": {
+            "url": "http://xinxi.zstu.edu.cn/",
+            "name": "School of Information Science and Technology"
+        }
+    },
+    "description": "I am a full-time Lecturer in Computer Science at <a href=\"http://www.zstu.edu.cn/\">Zhejiang Sci-Tech University</a>, China. I received my BS degree and PhD degree in Computer Science, both from <a href=\"http://www.zju.edu.cn/\">Zhejiang University</a>. I have spent 4 years of my postgraduate period in <a href=\"https://www.microsoft.com/en-us/research/lab/microsoft-research-asia/\">Microsoft Research Asia</a> as an intern in <a href=\"https://www.microsoft.com/en-us/research/group/internet-graphics/\">Internet Graphics Group</a>. After graduation, I went to <a href=\"http://www.crystalcg.com/\">Crystal CG</a> and became senior consultant in R&amp;D department until 2013. Before I started my current role in 2015, I have completed a postdoctoral research training at the <a href=\"http://www.is.cas.cn/\">Institute of Software, Chinese Academy of Sciences</a> (ISCAS).",
+    "research": "My research is concerned with various aspects of material appearance modelling (texture and reflectance), GPU hardware-accelerated rendering and related software development. I am also extending my research interest to computer vision and machine learning.",
+    "publications": {
+        "17lcc": {
+            "name": "Cloth Compression Using Local Cylindrical Coordinates",
+            "authors": [
+                {
+                    "name": "Jiong Chen"
+                },
+                {
+                    "name": "Yicun Zheng"
+                },
+                {
+                    "name": "Ying Song"
+                },
+                {
+                    "name": "Hanqiu Sun",
+                    "homepage": {
+                        "url": "http://www.cse.cuhk.edu.hk/~hanqiu/"
+                    }
+                },
+                {
+                    "name": "Hujun Bao",
+                    "homepage": {
+                        "url": "http://www.cad.zju.edu.cn/home/bao/"
+                    }
+                },
+                {
+                    "name": "Jin Huang",
+                    "homepage": {
+                        "url": "http://www.cad.zju.edu.cn/home/hj/"
+                    }
+                }
+            ],
+            "description": "The Visual Computer, Volume 33 Issue 6–8, pp 801–810, June 01, 2017",
+            "publisher": {
+                "name": "Springer",
+                "url": "https://dx.doi.org/10.1007/s00371-017-1389-2",
+                "image": "assets/images/springer.png"
+            },
+            "paper": {
+                "url": "assets/publications/17lcc/17lcc-paper.pdf",
+                "title": "Download Paper",
+                "text": "17lcc-paper.pdf",
+                "size": "1.76Mb"
+            },
+            "bibtex": {
+                "url": "assets/publications/17lcc/17lcc-bibtex.bib",
+                "title": "Download Bibtex"
+            },
+            "cover": {
+                "url": "assets/publications/17lcc/17lcc-cover.png"
+            },
+            "abstract": "Dense triangular mesh is required to represent fine wrinkle details, which leads to heavy cost of storage and network transmission payload for cloth animation. This paper describes a simple and efficient compression method based on the nearly inextensible property of cloth, whose main degrees of freedom are the dihedral angles. Given a single frame as the reference, we build a local cylindrical coordinate system and encode the vertex as three channels: dihedral angle, change of radius and height w.r.t. the reference. The values of latter two channels are close to zero due to the inextensibility of cloth, which helps for a high compression ratio. Compared with previous approaches, our method can achieve a higher compression ratio with lower computational cost."
+        },
+        "15vrf": {
+            "name": "Vector Regression Functions for Texture Compression",
+            "authors": [
+                {
+                    "name": "Ying Song"
+                },
+                {
+                    "name": "Jiaping Wang",
+                    "homepage": {
+                        "url": "http://www.jiapingwang.com/"
+                    }
+                },
+                {
+                    "name": "Liyi Wei",
+                    "homepage": {
+                        "url": "http://www.liyiwei.org/"
+                    }
+                },
+                {
+                    "name": "Wencheng Wang",
+                    "homepage": {
+                        "url": "http://lcs.ios.ac.cn/~whn/"
+                    }
+                }
+            ],
+            "description": "ACM Transactions on Graphics, Volume 35 Issue 1, Article 5, December 01, 2015",
+            "publisher": {
+                "name": "ACM",
+                "url": "https://doi.org/10.1145/2818996",
+                "image": "assets/images/acm.png"
+            },
+            "paper": {
+                "url": "assets/publications/15vrf/15vrf-paper.pdf",
+                "text": "15vrf-paper.pdf",
+                "title": "Download Paper",
+                "size": "1.06Mb"
+            },
+            "supplementaries": [
+                {
+                    "url": "assets/publications/15vrf/15vrf-slides.pptm",
+                    "text": "15vrf-slides.pptm",
+                    "size": "12.74Mb"
+                }
+            ],
+            "bibtex": {
+                "url": "assets/publications/15vrf/15vrf-bibtex.bib",
+                "title": "Download Bibtex"
+            },
+            "cover": {
+                "url": "assets/publications/15vrf/15vrf-cover.png"
+            },
+            "abstract": "Raster images are the standard format for texture mapping, but they suffer from limited resolution. Vector graphics are resolution-independent but are less general and more difficult to implement on a GPU. We propose a hybrid representation called vector regression functions (<abbr title=\"Vector Regression Functions\">VRFs</abbr>), which compactly approximate any point-sampled image and support GPU texture mapping, including random access and filtering operations. Unlike standard GPU texture compression, (<abbr title=\"Vector Regression Functions\">VRFs</abbr>) provide a variable-rate encoding in which piecewise smooth regions compress to the square root of the original size. Our key idea is to represent images using the multilayer perceptron, allowing general encoding via regression and efficient decoding via a simple GPU pixel shader. We also propose a content-aware spatial partitioning scheme to reduce the complexity of the neural network model. We demonstrate benefits of our method including its quality, size, and runtime speed."
+        },
+        "15propagation": {
+            "name": "Distinguishing Local and Global Edits for Their Simultaneous Propagation in a Uniform Framework",
+            "authors": [
+                {
+                    "name": "Wencheng Wang"
+                },
+                {
+                    "name": "Panpan Xu"
+                },
+                {
+                    "name": "Ying Song"
+                },
+                {
+                    "name": "Miao Hua"
+                },
+                {
+                    "name": "Minying Zhang"
+                },
+                {
+                    "name": "Xiaohui Bie"
+                }
+            ],
+            "description": "IEEE Transactions on Image Processing, Volume 24 Issue 8, August 01, 2015",
+            "publisher": {
+                "name": "IEEE",
+                "url": "https://doi.org/10.1109/TIP.2015.2421442",
+                "image": "assets/images/ieee.png"
+            },
+            "paper": {
+                "url": "assets/publications/15propagation/15propagation-paper.pdf",
+                "text": "15propagation-paper.pdf",
+                "title": "Download Paper",
+                "size": "3.28Mb"
+            },
+            "bibtex": {
+                "url": "assets/publications/15propagation/15propagation-bibtex.bib",
+                "title": "Download Bibtex"
+            },
+            "cover": {
+                "url": "assets/publications/15propagation/15propagation-cover.png"
+            },
+            "abstract": "In propagating edits for image editing, some edits are intended to affect limited local regions, while others act globally over the entire image. However, the ambiguity problem in propagating edits is not adequately addressed in existing methods. Thus, tedious user input requirements remain since the user must densely or repeatedly input control samples to suppress ambiguity. In this paper, we address this challenge to propagate edits suitably by marking edits for local or global propagation and determining their reasonable propagation scopes automatically. Thus, our approach avoids propagation conflicts, effectively resolving the ambiguity problem. With the reduction of ambiguity, our method allows fewer and less-precise control samples than existing methods. Furthermore, we provide a uniform framework to propagate local and global edits simultaneously, helping the user to quickly obtain the intended results with reduced labor. With our unified framework, the potentially ambiguous interaction between local and global edits (evident in existing methods that propagate these two edit types in series) is resolved. We experimentally demonstrate the effectiveness of our method compared with existing methods."
+        },
+        "09subedit": {
+            "name": "SubEdit: A Representation for Editing Measured Heterogeneous Subsurface Scattering",
+            "authors": [
+                {
+                    "name": "Ying Song"
+                },
+                {
+                    "name": "Xin Tong",
+                    "homepage": {
+                        "url": "https://www.microsoft.com/en-us/research/people/xtong/"
+                    }
+                },
+                {
+                    "name": "Fabio Pellacini",
+                    "homepage": {
+                        "url": "http://pellacini.di.uniroma1.it/"
+                    }
+                },
+                {
+                    "name": "Pieter Peers",
+                    "homepage": {
+                        "url": "http://www.cs.wm.edu/~ppeers/"
+                    }
+                }
+            ],
+            "description": "ACM Transactions on Graphics, Volume 28 Issue 3, Article 31, August 03, 2009",
+            "publisher": {
+                "name": "ACM",
+                "url": "https://doi.org/10.1145/1531326.1531337",
+                "image": "assets/images/acm.png"
+            },
+            "paper": {
+                "url": "assets/publications/09subedit/09subedit-paper.pdf",
+                "text": "09subedit-paper.pdf",
+                "title": "Download Paper",
+                "size": "10.99Mb"
+            },
+            "supplementaries": [
+                {
+                    "url": "assets/publications/09subedit/09subedit-supplemental.pdf",
+                    "text": "09subedit-supplemental.pdf",
+                    "size": "0.22Mb"
+                },
+                {
+                    "url": "assets/publications/09subedit/09subedit-video.mp4",
+                    "text": "09subedit-video.mp4",
+                    "size": "12.73Mb"
+                },
+                {
+                    "url": "assets/publications/09subedit/09subedit-video-song.mp4",
+                    "text": "09subedit-video-song.mp4",
+                    "size": "42.94Mb"
+                }
+            ],
+            "bibtex": {
+                "url": "assets/publications/09subedit/09subedit-bibtex.bib",
+                "title": "Download Bibtex"
+            },
+            "cover": {
+                "url": "assets/publications/09subedit/09subedit-cover.png"
+            },
+            "abstract": "In this paper we present <em>SubEdit</em>, a representation for editing the BSSRDF of heterogeneous subsurface scattering acquired from real-world samples. Directly editing measured raw data is difficult due to the non-local impact of heterogeneous subsurface scattering on the appearance. Our <em>SubEdit</em> representation decouples these non-local effects into the product of two local scattering profiles defined at respectively the incident and outgoing surface locations. This allows users to directly manipulate the appearance of single surface locations and to robustly make selections. To further facilitate editing, we reparameterize the scattering profiles into the local appearance concepts of albedo, scattering range, and profile shape. Our method preserves the visual quality of the measured material after editing by maintaining the consistency of subsurface transport for all edits. <em>SubEdit</em> fits measured data well while remaining efficient enough to support interactive rendering and manipulation. We illustrate the suitability of <em>SubEdit</em> as a representation for editing by applying various complex modifications on a wide variety of measured heterogeneous subsurface scattering materials."
+        }
+    }
+}

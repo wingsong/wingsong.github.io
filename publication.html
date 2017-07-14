@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta name="author" content="Sijun Xu (sijun.xu@outlook.com)">
+
+    <title>Publication Page</title>
+
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/styles/app.css">
+
+    <script src="//v3.bootcss.com/assets/js/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//v3.bootcss.com/assets/js/ie8-responsive-file-warning.js"></script>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="apple-touch-icon" href="//v3.bootcss.com/apple-touch-icon.png">
+    <link rel="icon" href="//v3.bootcss.com/favicon.ico">
+</head>
+<body>
+<div class="container" id="app">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default" v-if="publication">
+                <div class="panel-body">
+                    <div class="text-center">
+                        <h1>{{ publication.name }}</h1>
+                        <p class="lead">
+                            <em v-html="serializeAuthors(publication.authors)"></em>
+                        </p>
+                        <p class="lead">
+                            {{ publication.description }}
+                            <a :href="publication.publisher.url" :title="publication.publisher.name">
+                                <img :alt="publication.publisher.name" :src="publication.publisher.image">
+                            </a>
+                        </p>
+                        <img class="cover" :alt="publication.name" :title="publication.name"
+                             :src="publication.cover.url">
+                    </div>
+                    <div v-if="publication.abstract">
+                        <h2>Abstract</h2>
+                        <span v-html="publication.abstract"></span>
+                    </div>
+                    <div>
+                        <h2>Download</h2>
+                        <ul>
+                            <li>
+                                <a :href="publication.paper.url" :title="publication.paper.title">
+                                    {{ publication.paper.text }}
+                                </a>
+                                ({{ publication.paper.size }})
+                            </li>
+                            <template v-if="publication.supplementaries">
+                                <li v-for="item in publication.supplementaries">
+                                    <a :href="item.url">{{ item.text }}</a>
+                                    ({{ item.size }})
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                    <div v-if="bibtex">
+                        <h2>Bibtex</h2>
+                        <pre>{{ bibtex }}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/vue/2.3.4/vue.min.js"></script>
+<script src="//v3.bootcss.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+<script>
+    $.getJSON("assets/scripts/data.json", function (data) {
+        var pid = (function (search) {
+            if (!search) {
+                return null;
+            }
+            var query = search.toString().slice(1);
+            var reg = new RegExp("(^|&)pid=([^&]*)(&|$)");
+            var result = query.match(reg);
+            return (result != null) ? decodeURIComponent(result[2]) : null;
+        })(window.location.search);
+
+        var publication = data.publications[pid];
+
+        if (!publication) {
+            window.location.replace(data.homepage.url);
+            return;
+        }
+
+        var vm = new Vue({
+            "el": "#app",
+            "data": {
+                "publication": publication,
+                "bibtex": false
+            },
+            "methods": {
+                "serializeAuthors": function (authors) {
+                    var result = [];
+                    for (var index in authors) {
+                        var author = authors[index];
+                        result.push(this.serializeAuthor(author));
+                    }
+                    return result.join(", ");
+                },
+                "serializeAuthor": function (author) {
+                    var name = author.name;
+                    var text = (name == "Ying Song") ? "<strong>" + name + "</strong>" : name;
+                    var url = (name == "Ying Song") ? data.homepage.url : (author.homepage ? author.homepage.url : "");
+                    return url ? "<a href='" + url + "'>" + text + "</a>" : text;
+                }
+            }
+        });
+
+        $("#app").show();
+
+        if (publication) {
+            document.title = publication.name;
+            if (publication.bibtex.url) {
+                $.get(publication.bibtex.url, function (data) {
+                    vm.bibtex = data;
+                }, "text");
+            }
+        }
+
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-90089340-1', 'auto');
+        ga('send', 'pageview');
+    });
+</script>
+</body>
+</html>

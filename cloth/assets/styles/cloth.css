@@ -1,0 +1,12 @@
+body {
+    overflow: hidden;
+    padding-bottom: 70px;
+}
+
+div.configItem {
+    display: none;
+}
+
+div#progress-bar {
+    display: none;
+}
