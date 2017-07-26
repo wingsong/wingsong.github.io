@@ -15,7 +15,6 @@ img.cover {
     height: auto;
 }
 
-#app {
+[v-cloak] {
     display: none;
 }
-
