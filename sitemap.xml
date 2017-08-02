@@ -13,7 +13,7 @@
         <loc>https://wingsong.github.io/publication.html?pid=17lcc</loc>
         <changefreq>weekly</changefreq>
         <image:image>
-            <image:loc>https://wingsong.github.io/assets/publications/17lcc/17lcc-cover.png</image:loc>
+            <image:loc>https://wingsong.github.io/assets/publications/17lcc/17lcc-cover.jpg</image:loc>
             <image:caption>Cloth Compression Using Local Cylindrical Coordinates</image:caption>
         </image:image>
     </url>
@@ -21,7 +21,7 @@
         <loc>https://wingsong.github.io/publication.html?pid=15vrf</loc>
         <changefreq>weekly</changefreq>
         <image:image>
-            <image:loc>https://wingsong.github.io/assets/publications/15vrf/15vrf-cover.png</image:loc>
+            <image:loc>https://wingsong.github.io/assets/publications/15vrf/15vrf-cover.jpg</image:loc>
             <image:caption>Vector Regression Functions for Texture Compression</image:caption>
         </image:image>
     </url>
@@ -29,7 +29,7 @@
         <loc>https://wingsong.github.io/publication.html?pid=15propagation</loc>
         <changefreq>weekly</changefreq>
         <image:image>
-            <image:loc>https://wingsong.github.io/assets/publications/15propagation/15propagation-cover.png</image:loc>
+            <image:loc>https://wingsong.github.io/assets/publications/15propagation/15propagation-cover.jpg</image:loc>
             <image:caption>Distinguishing Local and Global Edits for Their Simultaneous Propagation in a Uniform
                 Framework
             </image:caption>
@@ -39,7 +39,7 @@
         <loc>https://wingsong.github.io/publication.html?pid=09subedit</loc>
         <changefreq>weekly</changefreq>
         <image:image>
-            <image:loc>https://wingsong.github.io/assets/publications/09subedit/09subedit-cover.png</image:loc>
+            <image:loc>https://wingsong.github.io/assets/publications/09subedit/09subedit-cover.jpg</image:loc>
             <image:caption>SubEdit: A Representation for Editing Measured Heterogeneous Subsurface Scattering
             </image:caption>
         </image:image>
