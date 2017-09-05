@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <title>滴滴出行行程报销单</title>
+    <title>滴滴出行-行程报销单</title>
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -19,8 +19,9 @@
         }
 
         td {
-            text-align: center;
             color: #747474;
+            text-align: center;
+            vertical-align: middle !important;
             font-size: 16px;
         }
 
@@ -30,7 +31,6 @@
 
         body {
             font-size: 18px;
-            font-family: "黑体"
         }
     </style>
 
@@ -40,104 +40,136 @@
 <div class="container-fluid" id="app" v-cloak>
     <div class="row">
         <div class="col-xs-12">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="applicationDate">申请日期</label>
-                    <input type="date" class="form-control" id="applicationDate" v-model.trim="applicationDate">
+            <div class="panel panel-default">
+                <div class="panel-heading">系统设置</div>
+                <div class="panel-body">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="inputFontFamily">字体</label>
+                            <input type="text" class="form-control" id="inputFontFamily"
+                                   v-model.trim="settings.fontFamily" size="40">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputHeaderHeight">表格标题高度</label>
+                            <input type="text" class="form-control" id="inputHeaderHeight"
+                                   v-model.trim="settings.headerHeight" size="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDataHeight">表格数据高度</label>
+                            <input type="text" class="form-control" id="inputDataHeight"
+                                   v-model.trim="settings.dataHeight" size="10">
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="mobileNumber">行程人手机号</label>
-                    <input type="text" class="form-control" id="mobileNumber" v-model.trim="mobileNumber" size="11">
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">行程报销单设置</div>
+                <div class="panel-body">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="applicationDate">申请日期</label>
+                            <input type="date" class="form-control" id="applicationDate"
+                                   v-model.trim="applicationDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="mobileNumber">行程人手机号</label>
+                            <input type="text" class="form-control" id="mobileNumber"
+                                   v-model.trim="mobileNumber" size="11">
+                        </div>
+                        <div class="form-group">
+                            <label for="autoType">车型</label>
+                            <input type="text" class="form-control" id="autoType" v-model.trim="autoType"
+                                   size="2">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">城市</label>
+                            <input type="text" class="form-control" id="city" v-model.trim="city" size="2">
+                        </div>
+                    </form>
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="startTime">上车时间</label>
+                            <input type="datetime-local" class="form-control" id="startTime">
+                        </div>
+                        <div class="form-group">
+                            <label for="startPoint">起点</label>
+                            <input type="text" class="form-control" id="startPoint" size="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="endPoint">终点</label>
+                            <input type="text" class="form-control" id="endPoint" size="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="mileage">里程</label>
+                            <input type="number" class="form-control" id="mileage">
+                        </div>
+                        <div class="form-group">
+                            <label for="money">金额</label>
+                            <input type="number" class="form-control" id="money">
+                        </div>
+                        <button type="button" class="btn btn-default" @click="addTravel">增加</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="autoType">车型</label>
-                    <input type="text" class="form-control" id="autoType" v-model.trim="autoType" size="2">
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">行程报销单</div>
+                <div class="panel-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-4">█ 申请日期:{{ applicationDate }}</div>
+                            <div class="col-xs-8">█ 行程时间:{{ startDay }} 至 {{ endDay }}</div>
+                            <div class="col-xs-12"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">█ 行程人手机号:{{ mobileNumber }}</div>
+                            <div class="col-xs-8">█ 共{{ travels.length }}笔行程，合计{{ amount | number(2) }}元</div>
+                            <div class="col-xs-12"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th v-bind:style="{height: settings.headerHeight}">序号</th>
+                                        <th>车型</th>
+                                        <th>上车时间</th>
+                                        <th>城 市</th>
+                                        <th>起点</th>
+                                        <th>终点</th>
+                                        <th>里程<br>[公里]</th>
+                                        <th>金额<br>[元]</th>
+                                        <th>备注</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <template v-for="(item, index) in travels">
+                                        <tr v-bind:class="{active:index % 2 == 1}"
+                                            v-on:mouseenter="$('#btnClose' + index).removeClass('hidden')"
+                                            v-on:mouseleave="$('#btnClose' + index).addClass('hidden')">
+                                            <td v-bind:style="{height: settings.dataHeight}">{{ index + 1 }}</td>
+                                            <td>{{ autoType }}</td>
+                                            <td>{{ item.startTime | dateAndTime }}</td>
+                                            <td>{{ city }}</td>
+                                            <td>{{ item.startPoint }}</td>
+                                            <td>{{ item.endPoint }}</td>
+                                            <td>{{ item.mileage | number(1) }}</td>
+                                            <td>{{ item.money | number(2) }}</td>
+                                            <td>
+                                                <button :id="'btnClose' + index" type="button" class="close hidden"
+                                                        aria-label="Close"
+                                                        v-on:click="travels.splice(index, 1)"><span
+                                                    aria-hidden="true">&times;</span></button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="city">城市</label>
-                    <input type="text" class="form-control" id="city" v-model.trim="city" size="2">
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="startTime">上车时间</label>
-                    <input type="datetime-local" class="form-control" id="startTime" size="10">
-                </div>
-                <div class="form-group">
-                    <label for="startPoint">起点</label>
-                    <input type="text" class="form-control" id="startPoint" size="4">
-                </div>
-                <div class="form-group">
-                    <label for="endPoint">终点</label>
-                    <input type="text" class="form-control" id="endPoint" size="4">
-                </div>
-                <div class="form-group">
-                    <label for="mileage">里程</label>
-                    <input type="number" class="form-control" id="mileage" size="4">
-                </div>
-                <div class="form-group">
-                    <label for="money">金额</label>
-                    <input type="number" class="form-control" id="money" size="4">
-                </div>
-                <button type="button" class="btn btn-default" @click="addTravel">增加</button>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <hr>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-4">█ 申请日期:{{ applicationDate }}</div>
-        <div class="col-xs-8">█ 行程时间:{{ startDay }} 至 {{ endDay }}</div>
-    </div>
-    <div class="row">
-        <div class="col-xs-4">█ 行程人手机号:{{ mobileNumber }}</div>
-        <div class="col-xs-8">█ 共{{ travels.length }}笔行程，合计{{ amount | number(2) }}元</div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>车型</th>
-                    <th>上车时间</th>
-                    <th>城 市</th>
-                    <th>起点</th>
-                    <th>终点</th>
-                    <th>里程<br>[公里]</th>
-                    <th>金额<br>[元]</th>
-                    <th>备注</th>
-                </tr>
-                </thead>
-                <tbody>
-                <template v-for="(item, index) in travels">
-                    <tr v-bind:class="{active:index % 2 == 1}"
-                        v-on:mouseenter="$('#btnClose' + index).removeClass('hidden')"
-                        v-on:mouseleave="$('#btnClose' + index).addClass('hidden')">
-                        <td>{{ index + 1 }}</td>
-                        <td>{{ autoType }}</td>
-                        <td>{{ item.startTime | dateAndTime }}</td>
-                        <td>{{ city }}</td>
-                        <td>{{ item.startPoint }}</td>
-                        <td>{{ item.endPoint }}</td>
-                        <td>{{ item.mileage | number(1) }}</td>
-                        <td>{{ item.money | number(2) }}</td>
-                        <td>
-                            <button :id="'btnClose' + index" type="button" class="close hidden" aria-label="Close"
-                                    v-on:click="travels.splice(index, 1)"><span
-                                aria-hidden="true">&times;</span></button>
-                        </td>
-                    </tr>
-                </template>
-                </tbody>
-            </table>
+            </div>
         </div>
     </div>
 </div>
@@ -166,7 +198,12 @@
             "mobileNumber": "18058775981",
             "autoType": "快车",
             "city": "杭州",
-            "travels": []
+            "travels": [],
+            "settings": {
+                "fontFamily": '"Helvetica Neue",Helvetica,Arial,sans-serif',
+                "headerHeight": "80px",
+                "dataHeight": "55px"
+            }
         },
         "computed": {
             "amount": function () {
@@ -227,7 +264,30 @@
                     return a.startTime > b.startTime;
                 });
             }
+        },
+        "watch": {
+            "settings": {
+                "handler": function (newVal, oldVal) {
+                    document.body.style.fontFamily = newVal.fontFamily;
+                },
+                "deep": true
+            }
         }
     });
+
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-90089340-1', 'auto');
+    ga('send', 'pageview');
 </script>
 </html>
